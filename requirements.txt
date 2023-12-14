@@ -1,0 +1,7 @@
+
+colorama==0.4.6
+
+
+
+pyinstaller==5.9.0
+pyinstaller-hooks-contrib==2023.2
