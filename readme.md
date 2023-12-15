@@ -6,7 +6,7 @@ it generates a PE exe that spawns a powershell process that starts a powershell 
 
 also it makes a bat and vbs file for persistent startup using reg.exe
 
-you can add -Ps (optional) to generate only a .ps1 
+you can add -Ps (optional) to generate only a .ps1 file
 
 DISCLAIMER :
 
