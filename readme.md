@@ -2,14 +2,15 @@ Greetings
 
 Keres a is Powershell rev-shell backdoor with persistence 
 
-it generates a PE exe that spawns a powershell process that starts a powershell rev-shell with persistence (if process stops an ohter one is spawned , if process is runing don t spawn new process)
+it generates a PE exe that spawns a powershell process that starts a powershell rev-shell with persistence (if process stops an other one is spawned , if process is runing don t spawn new process)
 
 also it makes a batch and vbs file for persistent startup using reg.exe
 
 you can add -Ps (optional) to generate only a .ps1 file
-(compilation using nuitka ,bit slow, Pyinstaller not working in linux :( )
 
-setup :
+(compilation with nuitka wich is a bit slow, Pyinstaller not working in linux :( forsome reason)
+
+SETUP :
 
 pip install -r requirements.txt
 sudo apt install patchelf 
