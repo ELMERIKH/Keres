@@ -13,7 +13,9 @@ you can add -Ps (optional) to generate only a .ps1 file
 SETUP :
 
 pip install -r requirements.txt
+
 sudo apt install patchelf 
+
 
 DISCLAIMER :
 
