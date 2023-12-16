@@ -11,6 +11,7 @@ you can add -Ps (optional) to generate only a .ps1 file
 (compilation with nuitka wich is a bit slow, Pyinstaller not working in linux :( forsome reason)
 
 SETUP :
+
 git clone https://github.com/ELMERIKH/Keres
 
 cd keres
