@@ -26,6 +26,7 @@ def create_exe(py_file):
     "--copyright=COPYRIGHT@Keres",
     "--trademarks=No Enemies",
     f"--windows-icon-from-ico=icons/keres.ico",
+    "--disable-console",
     "--standalone",
     "--remove-output",
     f"--output-dir=Output",
