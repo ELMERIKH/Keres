@@ -19,7 +19,7 @@ def create_exe(py_file):
         is_windows = platform.system().lower() == "windows"
         python_executable = "python" if is_windows else "python3"
         nuitka_command = [
-        python_executable,"python3", "-m", "nuitka",
+        python_executable,"-m", "nuitka",
     "--onefile",
     "--company-name=Keres",
     "--file-version=1.2",
