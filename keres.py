@@ -5,7 +5,7 @@ import os
 import random
 import subprocess
 import sys
-
+import platform
 
 def display_ansi_art(file_path):
     with open(file_path, 'r', encoding='latin-1') as file:
@@ -17,13 +17,12 @@ def create_exe(py_file):
         icons_directory = "icons"
         icon_file = os.path.join(icons_directory, 'keres.ico')  # Default icon file path
         
-
+        python_executable = "python" if is_windows else "python3"
         nuitka_command = [
-    "python3", "-m", "nuitka",
+        python_executable,"python3", "-m", "nuitka",
     "--onefile",
     "--company-name=Keres",
     "--file-version=1.2",
-    "--onefile-tempdir-spec=%HOME%"
     "--copyright=COPYRIGHT@Keres",
     "--trademarks=No Enemies",
     f"--windows-icon-from-ico=icons/keres.ico",
