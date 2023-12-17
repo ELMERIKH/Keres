@@ -16,7 +16,7 @@ def create_exe(py_file):
     try:
         icons_directory = "icons"
         icon_file = os.path.join(icons_directory, 'keres.ico')  # Default icon file path
-        
+        is_windows = platform.system().lower() == "windows"
         python_executable = "python" if is_windows else "python3"
         nuitka_command = [
         python_executable,"python3", "-m", "nuitka",
