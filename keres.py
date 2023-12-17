@@ -19,7 +19,7 @@ def create_exe(py_file):
         
 
         nuitka_command = [
-    "python", "-m", "nuitka",
+    "python3", "-m", "nuitka",
     "--onefile",
     "--company-name=Keres",
     "--file-version=1.2",
