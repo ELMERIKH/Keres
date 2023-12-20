@@ -5,7 +5,7 @@ import os
 import random
 import subprocess
 import sys
-
+import platform
 
 def display_ansi_art(file_path):
     with open(file_path, 'r', encoding='latin-1') as file:
@@ -16,24 +16,26 @@ def create_exe(py_file):
     try:
         icons_directory = "icons"
         icon_file = os.path.join(icons_directory, 'keres.ico')  # Default icon file path
-        
-
+        is_windows = platform.system().lower() == "windows"
+        python_executable = "python" if is_windows else "python3"
         nuitka_command = [
-    "python3", "-m", "nuitka",
+        python_executable,"-m", "nuitka",
     "--onefile",
     "--company-name=Keres",
     "--file-version=1.2",
-    "--onefile-tempdir-spec=%HOME%"
     "--copyright=COPYRIGHT@Keres",
     "--trademarks=No Enemies",
     f"--windows-icon-from-ico=icons/keres.ico",
+    "--disable-console",
     "--standalone",
     "--remove-output",
     f"--output-dir=Output",
     f"--output-filename=Keres",
+    "--include-package=pyarmor_runtime_000000",
     py_file
 ]
-
+        subprocess.run("pyarmor cfg restrict_module=0")
+        subprocess.run("pyarmor g pewpew.py ")
         subprocess.run(nuitka_command)
         print("Executable created successfully.")
     except Exception as e:
@@ -120,12 +122,12 @@ def main():
 
     print('\n')
     print('generated  Powershell command')
-    # Access the values using args.address and args.port
+    
     
     print('\n')
     print("Creating the executable...")
     print('\n')
-    create_exe('pewpew.py')
+    create_exe('./dist/pewpew.py')
     print("Finished creating the executable in Output folder.")
 
 if __name__ == "__main__":
