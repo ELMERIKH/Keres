@@ -18,7 +18,7 @@ cd keres
 
 pip install -r requirements.txt
 
-sudo apt install patchelf 
+sudo apt install patchelf (Linux)
 
 python3 keres.py
 
