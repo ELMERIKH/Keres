@@ -8,7 +8,15 @@ also it makes a batch and vbs file for persistent startup using reg.exe
 
 you can add -Ps (optional) to generate only a .ps1 file
 
-(compilation with nuitka wich is a bit slow, Pyinstaller not working in linux :( forsome reason)
+(compilation with nuitka wich is a bit slow, Pyinstaller not working in linux :( for some reason)
+
+Update ! : 
+
+added obfuscation for the PE using Pyarmor
+
+to do : 
+
+add more options (DLL PE, no startup ...)
 
 SETUP :
 
