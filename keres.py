@@ -35,8 +35,8 @@ def create_exe(py_file):
     "--include-package=pyarmor_runtime_000000",
     py_file
 ]
-        subprocess.run("pyarmor cfg restrict_module=0")
-        subprocess.run("pyarmor g pewpew.py ")
+        subprocess.run(["pyarmor", "cfg", "restrict_module=0"])
+        subprocess.run(["pyarmor", "g", "pewpew.py"])
         subprocess.run(nuitka_command)
         print("Executable created successfully.")
     except Exception as e:
