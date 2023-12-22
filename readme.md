@@ -35,7 +35,7 @@ python3 keres.py
 
 (PS : if on linux after running use wine to compile pewpew.py or just compile it on windows env) 
 
-tutorial: [Link Text](wine-tuto/wine.md)
+tutorial: [wine-tuto](wine-tuto/wine.md)
 
 DISCLAIMER :
 
