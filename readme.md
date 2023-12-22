@@ -11,7 +11,7 @@ also it makes a batch and vbs file for persistent startup using reg.exe
 
 you can add -Ps (optional) to generate only a .ps1 file
 
-(compilation with nuitka wich is a bit slow, Pyinstaller not working in linux :( for some reason)
+(compilation with nuitka)
 
 Update ! : 
 
