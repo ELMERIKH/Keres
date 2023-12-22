@@ -1,4 +1,8 @@
+
+![Alt text](<2023-12-14 10_44_16-.png>)
+
 Greetings
+-------------------------------------
 
 Keres a is Powershell rev-shell backdoor with persistence 
 
@@ -8,9 +12,10 @@ also it makes a batch and vbs file for persistent startup using reg.exe
 
 you can add -Ps (optional) to generate only a .ps1 file
 
-(compilation with nuitka wich is a bit slow, Pyinstaller not working in linux :( for some reason)
+(compilation with nuitka)
 
 Update ! : 
+-------------------------------------------
 
 added obfuscation for the PE using Pyarmor
 
@@ -19,6 +24,7 @@ to do :
 add more options (DLL PE, no startup ...)
 
 SETUP :
+---------------------
 
 git clone https://github.com/ELMERIKH/Keres
 
@@ -30,11 +36,14 @@ sudo apt install patchelf (Linux)
 
 python3 keres.py
 
+(PS : if on linux after running use wine to compile pewpew.py or just compile it on windows env) 
+
+tutorial: [wine-tuto](wine-tuto/wine.md)
+-------------------
 
 DISCLAIMER :
+----------------------------------
 
 ME The author takes NO responsibility and/or liability for how you choose to use any of the tools/source code/any files provided. ME The author and anyone affiliated with will not be liable for any losses and/or damages in connection with use of Keres. By using Keres or any files included, you understand that you are AGREEING TO USE AT YOUR OWN RISK. Once again Keres is for EDUCATION and/or RESEARCH purposes ONLY.
 
 
-
-![Alt text](<2023-12-14 10_44_16-.png>)
