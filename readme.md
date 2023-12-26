@@ -12,6 +12,7 @@ also it makes a batch and vbs file for persistent startup using reg.exe
 
 you can add -Ps (optional) to generate only a .ps1 file
 
+
 (compilation with nuitka)
 
 Update ! : 
