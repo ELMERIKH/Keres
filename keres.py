@@ -35,13 +35,13 @@ def create_linux(py_file):
             "--remove-output",
             f"--output-dir=Output",
             f"--output-filename=Keres",
-            "--include-package=pyarmor_runtime_000000",
+            
             py_file
         ]
         
 
         try:
-            py_file ='./lkeres.py'
+            
             subprocess.run(nuitka_command)
         except subprocess.CalledProcessError as e:
             print(f"Error in subprocess: {e}")
