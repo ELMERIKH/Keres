@@ -38,15 +38,7 @@ def create_linux(py_file):
             "--include-package=pyarmor_runtime_000000",
             py_file
         ]
-        try:
-            subprocess.run(["pyarmor", "cfg", "restrict_module=0"])
-        except subprocess.CalledProcessError as e:
-            print(f"Error in subprocess: {e}")
-
-        try:
-            subprocess.run(["pyarmor", "g", "lkeres.py"])
-        except subprocess.CalledProcessError as e:
-            print(f"Error in subprocess: {e}")
+        
 
         try:
             py_file = './dist/lkeres.py' if os.path.exists('./dist/lkeres.py') else './lkeres.py'
@@ -65,7 +57,7 @@ def create_exe(py_file):
         is_windows = platform.system().lower() == "windows"
         python_executable = "python" if is_windows else "python3"
         if platform.system().lower() != "windows":
-            raise Exception("You need to compile in a Windows environment .")
+            raise Exception("You need to compile in a Windows environment use -Pl to specify target Platforme .")
         nuitka_command = [
             python_executable, "-m", "nuitka",
             "--onefile",
