@@ -41,7 +41,7 @@ def create_linux(py_file):
         
 
         try:
-            py_file = './dist/lkeres.py' if os.path.exists('./dist/lkeres.py') else './lkeres.py'
+            py_file ='./lkeres.py'
             subprocess.run(nuitka_command)
         except subprocess.CalledProcessError as e:
             print(f"Error in subprocess: {e}")
