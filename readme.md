@@ -1,10 +1,10 @@
 
-![Alt text](<2023-12-14 10_44_16-.png>)
+![!\[Alt text\](<>)](<2023-12-31 09_49_35-Kali-Linux-2021.3-vmware-amd64 - VMware Workstation 17 Player (Non-commercial us.png>)
 
 Greetings
 -------------------------------------
 
-Keres a is Powershell rev-shell backdoor with persistence 
+Keres a is Powershell rev-shell backdoor with persistence for windows and linux (pwsh)
 
 it generates a PE exe that spawns a powershell process that starts a powershell rev-shell with persistence (if process stops an other one is spawned , if process is running don t spawn new process)
 
@@ -22,7 +22,7 @@ added obfuscation for the PE using Pyarmor
 
 to do : 
 
-add more options (DLL PE, no startup ...)
+add more options (DLL PE, startup for linux...)
 
 SETUP :
 ---------------------
@@ -37,7 +37,7 @@ sudo apt install patchelf (Linux)
 
 python3 keres.py
 
-(PS : if on linux after running use wine to compile pewpew.py or just compile it on windows env) 
+(PS : if on linux and want to compile a win binary use wine to compile pewpew.py or just compile it on a windows env) 
 
 tutorial: [wine-tuto](wine-tuto/wine.md)
 -------------------
