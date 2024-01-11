@@ -10,7 +10,11 @@ it generates a PE exe that spawns a powershell process that starts a powershell 
 
 also it makes a batch and vbs file for persistent startup using reg.exe
 
-you can add -Ps (optional) to generate only a .ps1 file
+you can add -Ps (optional) to generate only a .ps1 file that those same thing
+
+run the.ps1 file like the following for persistent startup (you can also change name of file btw):
+
+./keres.ps1 -p
 
 
 (compilation with nuitka)
@@ -37,7 +41,7 @@ sudo apt install patchelf (Linux)
 
 python3 keres.py
 
-(PS : if on linux and want to compile a win binary use wine to compile pewpew.py or just compile it on a windows env) 
+(PS : if on linux and want to compile a win binary use wine to compile ./dist/pewpew.py or pewpew.py or just compile it on a windows env) 
 
 tutorial: [wine-tuto](wine-tuto/wine.md)
 -------------------
