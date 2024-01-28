@@ -8,11 +8,11 @@ Keres a is Powershell rev-shell backdoor with persistence for windows and linux 
 
 it generates a PE exe that spawns a powershell process that starts a powershell rev-shell with persistence (if process stops an other one is spawned , if process is running don t spawn new process)
 
-also it makes a batch and vbs file for persistent startup using reg.exe
+also it creates a Hidden batch and vbs file for persistent startup using reg.exe (value 'keres')
 
 you can add -Ps (optional) to generate only a .ps1 file that do same thing
 
-run the.ps1 file like the following for persistent startup (you can also change name of file btw):
+run the.ps1 file like the following for persistent startup (you can also change name of file btw ,reg value 'Meow'):
 
 ./keres.ps1 -p
 
