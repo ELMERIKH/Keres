@@ -1,6 +1,7 @@
 
 ![!\[Alt text\](<>)](<2023-12-31 09_49_35-Kali-Linux-2021.3-vmware-amd64 - VMware Workstation 17 Player (Non-commercial us.png>)
 
+
 Greetings
 -------------------------------------
 
@@ -24,9 +25,18 @@ Update ! :
 
 added obfuscation for the PE using Pyarmor
 
+added go binary with garbel obfuscation
+
 to do : 
 
-add more options (DLL PE, startup for linux...)
+add more options ( startup for linux...)
+
+Prerequisite:
+---------------
+
+python
+
+go
 
 SETUP :
 ---------------------
@@ -43,7 +53,7 @@ sudo apt install patchelf (Linux)
 
 python3 keres.py
 
-(PS : if on linux and want to compile a win binary use wine to compile ./dist/pewpew.py or pewpew.py or just compile it on a windows env) 
+(PS : if on linux and want to compile a python win binary use wine to compile ./dist/pewpew.py or pewpew.py or just compile it on a windows env) 
 
 tutorial: [wine-tuto](wine-tuto/wine.md)
 -------------------
