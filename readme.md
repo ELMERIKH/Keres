@@ -17,8 +17,9 @@ run the.ps1 file like the following for persistent startup (you can also change 
 
 ./keres.ps1 -p
 
+note : it s preferable to use -go arg to build from a go file instead of python for better evasion
 
-(compilation with nuitka)
+(python compilation with nuitka , go compilation with garble )
 
 Update ! : 
 -------------------------------------------
