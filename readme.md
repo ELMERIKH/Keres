@@ -37,6 +37,8 @@ cd keres
 
 pip install -r requirements.txt
 
+go install mvdan.cc/garble@master
+
 sudo apt install patchelf (Linux)
 
 python3 keres.py

