@@ -128,11 +128,11 @@ def main():
     print(introduction)
     ans_directory = 'banners'
     parser = argparse.ArgumentParser(description="Keres=Demon")
-    parser.add_argument("-a", "--address", required=True, help="Specify the target address")
-    parser.add_argument("-p", "--port", required=True, type=int, help="Specify the target port")
+    parser.add_argument("-a", "--address", required=True, help="Specify  address")
+    parser.add_argument("-p", "--port", required=True, type=int, help="Specify  port")
     parser.add_argument("-Ps", "--save_ps_command", action="store_true", help="Save the PowerShell payload to a Keres.ps1 file in the Output folder")
     parser.add_argument("-Pl", "--platform", choices=['Linux', 'Windows'], help="Choose the targeted platform (Linux or Windows)")
-    parser.add_argument("-go", "--go", action="store_true", help="go binary")
+    parser.add_argument("-go", "--go", action="store_true", help="build  binary from go payload")
 
     args = parser.parse_args()
     server_address = args.address
