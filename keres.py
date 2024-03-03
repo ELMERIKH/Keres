@@ -218,12 +218,12 @@ while ($true){{
         if platform.system().lower() != "windows":
             if args.platform=="Windows":
                 subprocess.run("export GOOS=windows GOARCH=amd64", shell=True)
-                subprocess.run("garble -literals -tiny build -o ./Output/keres.exe pewpew.go", shell=True)
+                subprocess.run("garble -literals -tiny build -ldflags '-H=windowsgui' -o ./Output/keres.exe pewpew.go", shell=True)
                 print("Finished creating the executable in Output folder.")
             if args.platform=="Linux":
 
                 subprocess.run("export GOOS=linux ", shell=True)
-                subprocess.run("garble -literals -tiny build -o ./Output/keres pewpew.go", shell=True)
+                subprocess.run("garble -literals -tiny build -ldflags '-H=windowsgui' -o  ./Output/keres pewpew.go", shell=True)
                 print("Finished creating the executable in Output folder.")
         
         else:
