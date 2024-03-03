@@ -48,7 +48,7 @@ cd keres
 
 pip install -r requirements.txt
 
-go install mvdan.cc/garble@master
+go install mvdan.cc/garble@latest
 
 sudo apt install patchelf (Linux)
 
