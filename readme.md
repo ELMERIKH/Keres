@@ -21,12 +21,15 @@ note : it s preferable to use -go arg to build from a go file instead of python 
 
 (python compilation with nuitka , go compilation with garble )
 
+tested and fully bypass windows 10/11
+--------------
+
 Update ! : 
 -------------------------------------------
 
 added obfuscation for the PE using Pyarmor
 
-added go binary with garbel obfuscation
+added go binary build with garbel obfuscation
 
 to do : 
 
