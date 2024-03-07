@@ -25,6 +25,7 @@ note : it s preferable to use -go arg to build from a go file instead of python 
 
 tested and fully bypass windows 10/11
 --------------
+do not upload binaries to virus total ;)
 
 Update ! : 
 -------------------------------------------
@@ -65,7 +66,7 @@ python3 keres.py
 
 tutorial: [wine-tuto](wine-tuto/wine.md)
 -------------------
-do not upload binaries to virus total ;)
+
 
 DISCLAIMER :
 ----------------------------------
