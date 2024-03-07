@@ -65,6 +65,7 @@ python3 keres.py
 
 tutorial: [wine-tuto](wine-tuto/wine.md)
 -------------------
+do not upload binaries to virus total ;)
 
 DISCLAIMER :
 ----------------------------------
