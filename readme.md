@@ -9,6 +9,8 @@ Keres a is Powershell rev-shell backdoor with persistence for windows and linux 
 
 it generates a PE exe that spawns a powershell process that starts a powershell rev-shell with persistence (if process stops an other one is spawned , if process is running don t spawn new process)
 
+even if you exit break the shell you will the shell will always respawn on target
+
 also it creates a Hidden batch and vbs file for persistent startup using reg.exe (value 'keres')
 
 you can add -Ps (optional) to generate only a .ps1 file that do same thing
@@ -21,12 +23,16 @@ note : it s preferable to use -go arg to build from a go file instead of python 
 
 (python compilation with nuitka , go compilation with garble )
 
+tested and fully bypass windows 10/11
+--------------
+do not upload binaries to virus total ;)
+
 Update ! : 
 -------------------------------------------
 
 added obfuscation for the PE using Pyarmor
 
-added go binary with garbel obfuscation
+added go binary build with garbel obfuscation
 
 to do : 
 
@@ -60,6 +66,7 @@ python3 keres.py
 
 tutorial: [wine-tuto](wine-tuto/wine.md)
 -------------------
+
 
 DISCLAIMER :
 ----------------------------------
