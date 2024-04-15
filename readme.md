@@ -43,7 +43,7 @@ Prerequisite:
 
 python
 
-go
+go (if you want to build golang binary)
 
 SETUP :
 ---------------------
