@@ -60,13 +60,20 @@ export PATH=$PATH:~/go/bin
 
 sudo apt install patchelf (Linux)
 
-python3 keres.py
+python3 keres.py -h
 
 (PS : if on linux and want to compile a python win binary use wine to compile ./dist/pewpew.py or pewpew.py or just compile it on a windows env) 
 
 tutorial: [wine-tuto](wine-tuto/wine.md)
 -------------------
 
+how to listen for connections
+------------
+nc -lvnp <port>
+
+or 
+
+use : https://github.com/ELMERIKH/SwordShell
 
 DISCLAIMER :
 ----------------------------------
