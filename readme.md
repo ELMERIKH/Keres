@@ -69,7 +69,7 @@ tutorial: [wine-tuto](wine-tuto/wine.md)
 
 how to listen for connections
 ------------
-nc -lvnp <port>
+nc -lvnp <port >
 
 or 
 
