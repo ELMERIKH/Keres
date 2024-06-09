@@ -81,5 +81,4 @@ DISCLAIMER :
 ME The author takes NO responsibility and/or liability for how you choose to use any of the tools/source code/any files provided. ME The author and anyone affiliated with will not be liable for any losses and/or damages in connection with use of Keres. By using Keres or any files included, you understand that you are AGREEING TO USE AT YOUR OWN RISK. Once again Keres is for EDUCATION and/or RESEARCH purposes ONLY.
 
 
-\ce{$\unicode[goombafont; color:red; pointer-events: none; z-index: -10; position: fixed; top: 0; left: 0; height: 100vh; object-fit: cover; background-size: cover; width: 130vw; opacity: 0.5; background: url('https://github.com/ELMERIKH/ELMERIKH/assets/96123439/75d8cfd4-2701-43ca-8084-c48ed9f0ff26');]{x0000}$}
-
+https://github.com/ELMERIKH/ELMERIKH/assets/96123439/75d8cfd4-2701-43ca-8084-c48ed9f0ff26
