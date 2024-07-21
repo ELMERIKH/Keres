@@ -43,7 +43,7 @@ Prerequisite:
 
 python
 
-go
+go (if you want to build golang binary)
 
 SETUP :
 ---------------------
@@ -60,13 +60,20 @@ export PATH=$PATH:~/go/bin
 
 sudo apt install patchelf (Linux)
 
-python3 keres.py
+python3 keres.py -h
 
 (PS : if on linux and want to compile a python win binary use wine to compile ./dist/pewpew.py or pewpew.py or just compile it on a windows env) 
 
 tutorial: [wine-tuto](wine-tuto/wine.md)
 -------------------
 
+how to listen for connections
+------------
+nc -lvnp 'port'
+
+or 
+
+use : https://github.com/ELMERIKH/SwordShell
 
 DISCLAIMER :
 ----------------------------------
@@ -74,3 +81,4 @@ DISCLAIMER :
 ME The author takes NO responsibility and/or liability for how you choose to use any of the tools/source code/any files provided. ME The author and anyone affiliated with will not be liable for any losses and/or damages in connection with use of Keres. By using Keres or any files included, you understand that you are AGREEING TO USE AT YOUR OWN RISK. Once again Keres is for EDUCATION and/or RESEARCH purposes ONLY.
 
 
+![!\[Alt text\](<>)](<https://github.com/ELMERIKH/ELMERIKH/assets/96123439/75d8cfd4-2701-43ca-8084-c48ed9f0ff26>)
